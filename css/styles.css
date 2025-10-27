@@ -63,6 +63,7 @@
                 margin-bottom: 24px;
                 line-height: 1.1;
                 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+                margin-top: 70px;
             }
 
             .hero-content .subtitle {
@@ -85,20 +86,24 @@
                 margin-bottom: 40px;
             }
 
-            .download-btn {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                background: rgba(255, 255, 255, 0.95);
-                color: #1F2937;
-                padding: 16px 24px;
-                border-radius: 16px;
-                text-decoration: none;
-                font-weight: 600;
-                transition: all 0.3s ease;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                backdrop-filter: blur(10px);
-            }
+           .download-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #1F2937;
+            padding: 14px 20px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            flex: 1 1 auto;
+            min-width: 160px;
+            justify-content: center;
+        }
 
             .download-btn:hover {
                 transform: translateY(-2px);
@@ -916,3 +921,5 @@
                     font-size: 1rem;
                 }
             }
+
+            
