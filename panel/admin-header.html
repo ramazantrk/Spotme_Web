@@ -1,0 +1,150 @@
+<!-- admin-header.html -->
+<header class="admin-header">
+    <div class="header-container">
+        <!-- Header Top Section -->
+        <div class="header-top">
+            <!-- Logo Section -->
+            <div class="logo-section">
+                <div class="logo">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>LocalConnect</h1>
+                    <p>Admin Panel</p>
+                </div>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <!-- Search Box -->
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Ara..." id="globalSearch">
+                    <button class="search-btn" onclick="performSearch()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <!-- Notifications -->
+                <button class="notifications-btn" onclick="toggleNotifications()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge" id="notificationCount">0</span>
+                </button>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- User Menu -->
+                <div class="user-menu" onclick="toggleUserDropdown()">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="userName">Admin</span>
+                        <span class="user-role" id="userRole">Yönetici</span>
+                    </div>
+                    <i class="fas fa-chevron-down dropdown-icon"></i>
+                    
+                    <!-- User Dropdown -->
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="admin-profile.html" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            Profil
+                        </a>
+                        <a href="admin-settings.html" class="dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            Ayarlar
+                        </a>
+                        <a href="admin-reports.html" class="dropdown-item">
+                            <i class="fas fa-chart-bar"></i>
+                            Raporlar
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item danger" onclick="AdminHeader.logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Çıkış Yap
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <nav class="header-nav">
+            <ul class="nav-menu" id="navMenu">
+                     <li class="nav-item">
+                    <a href="admin-homepage.html" class="nav-link" data-page="homepage">
+                        <i class="fas fa-home"></i>
+                        <span>HomePage</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link" data-page="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-categories.html" class="nav-link" data-page="categories">
+                        <i class="fas fa-tags"></i>
+                        <span>Kategoriler</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-posts.html" class="nav-link" data-page="posts">
+                        <i class="fas fa-newspaper"></i>
+                        <span>İlanlar</span>
+                        <span class="nav-badge" id="postsCount">0</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-users.html" class="nav-link" data-page="users">
+                        <i class="fas fa-users"></i>
+                        <span>Kullanıcılar</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-feedback.html" class="nav-link" data-page="feedback">
+                        <i class="fas fa-comments"></i>
+                        <span>Geri Bildirimler</span>
+                        <span class="nav-badge" id="feedbackCount">0</span>
+                    </a>
+                </li>
+               
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Notification Dropdown Panel -->
+<div id="notificationPanel" class="notification-panel">
+    <div class="notification-header">
+        <h3>Bildirimler</h3>
+        <button onclick="markAllAsRead()" class="mark-all-btn">Tümünü Okundu İşaretle</button>
+    </div>
+    <div class="notification-list" id="notificationList">
+        <div class="notification-item unread">
+            <i class="fas fa-user-plus notification-icon"></i>
+            <div class="notification-content">
+                <p>Yeni kullanıcı kaydı</p>
+                <span class="notification-time">5 dakika önce</span>
+            </div>
+        </div>
+        <div class="notification-item">
+            <i class="fas fa-comment notification-icon"></i>
+            <div class="notification-content">
+                <p>Yeni geri bildirim alındı</p>
+                <span class="notification-time">1 saat önce</span>
+            </div>
+        </div>
+        <div class="notification-item">
+            <i class="fas fa-exclamation-triangle notification-icon"></i>
+            <div class="notification-content">
+                <p>Sistem uyarısı</p>
+                <span class="notification-time">3 saat önce</span>
+            </div>
+        </div>
+    </div>
+    <div class="notification-footer">
+        <a href="admin-notifications.html">Tüm Bildirimleri Görüntüle</a>
+    </div>
+</div>

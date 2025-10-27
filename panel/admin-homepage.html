@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Sayfa Yönetimi - LocalConnect Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/admin-homepage.css">
+    <link rel="stylesheet" href="css/admin-header.css">
+
+</head>
+<body>
+    <div class="admin-container">
+
+
+        <main class="main-content">
+             <script type="module" src="js/admin-header.js"></script>
+         <div id="header-placeholder"></div>
+            <div class="homepage-management">
+                <div id="alertContainer"></div>
+
+                <!-- Tabs -->
+               <!-- Tabs -->
+<div class="tabs">
+    <button class="tab active" data-tab="hero" onclick="switchTab('hero')">Hero Section</button>
+    <button class="tab" data-tab="stats" onclick="switchTab('stats')">İstatistikler</button>
+    <button class="tab" data-tab="features" onclick="switchTab('features')">Özellikler</button>
+    <button class="tab" data-tab="sponsors" onclick="switchTab('sponsors')">Sponsorlar</button>
+    <button class="tab" data-tab="cta" onclick="switchTab('cta')">CTA Section</button>
+    <button class="tab" data-tab="app-links" onclick="switchTab('app-links')">App Links</button>
+    <button class="tab" data-tab="settings" onclick="switchTab('settings')">Sayfa Ayarları</button>
+</div>
+
+                <!-- Hero Section Tab -->
+                <div id="hero-tab" class="tab-content active">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-star"></i>
+                                Hero Section
+                            </h3>
+                        </div>
+                        <form id="heroForm">
+                            <div class="form-group">
+                                <label class="form-label">Başlık</label>
+                                <input type="text" class="form-input" id="heroTitle" required maxlength="200">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Alt Başlık</label>
+                                <input type="text" class="form-input" id="heroSubtitle" required maxlength="300">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Açıklama</label>
+                                <textarea class="form-textarea" id="heroDescription" required maxlength="1000"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-checkbox">
+                                    <input type="checkbox" id="heroIsActive">
+                                    <span>Aktif</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Kaydet
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Stats Tab -->
+                <div id="stats-tab" class="tab-content">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-chart-bar"></i>
+                                Hero İstatistikleri
+                            </h3>
+                            <button class="btn btn-success" onclick="openStatModal()">
+                                <i class="fas fa-plus"></i> Yeni İstatistik
+                            </button>
+                        </div>
+                        <div id="statsTableContainer"></div>
+                    </div>
+                </div>
+
+                <!-- Features Tab -->
+                <div id="features-tab" class="tab-content">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-lightbulb"></i>
+                                Özellikler
+                            </h3>
+                            <button class="btn btn-success" onclick="openFeatureModal()">
+                                <i class="fas fa-plus"></i> Yeni Özellik
+                            </button>
+                        </div>
+                        <div id="featuresTableContainer"></div>
+                    </div>
+                </div>
+
+                <!-- Sponsors Tab -->
+                <div id="sponsors-tab" class="tab-content">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-handshake"></i>
+                                Sponsorlar
+                            </h3>
+                            <button class="btn btn-success" onclick="openSponsorModal()">
+                                <i class="fas fa-plus"></i> Yeni Sponsor
+                            </button>
+                        </div>
+                        <div id="sponsorsTableContainer"></div>
+                    </div>
+                </div>
+
+                <!-- CTA Tab -->
+                <div id="cta-tab" class="tab-content">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-bullhorn"></i>
+                                CTA Section
+                            </h3>
+                        </div>
+                        <form id="ctaForm">
+                            <div class="form-group">
+                                <label class="form-label">Başlık</label>
+                                <input type="text" class="form-input" id="ctaTitle" required maxlength="200">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Alt Başlık</label>
+                                <input type="text" class="form-input" id="ctaSubtitle" required maxlength="500">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-checkbox">
+                                    <input type="checkbox" id="ctaIsActive">
+                                    <span>Aktif</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Kaydet
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- App Links Tab -->
+                <div id="app-links-tab" class="tab-content">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-mobile-alt"></i>
+                                Uygulama İndirme Linkleri
+                            </h3>
+                            <button class="btn btn-success" onclick="openAppLinkModal()">
+                                <i class="fas fa-plus"></i> Yeni Link
+                            </button>
+                        </div>
+                        <div id="appLinksTableContainer"></div>
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div id="settings-tab" class="tab-content">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-cog"></i>
+                                Sayfa Ayarları (SEO & Meta)
+                            </h3>
+                        </div>
+                        <div id="settingsContainer"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Stat Modal -->
+    <div id="statModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="statModalTitle">Yeni İstatistik</h3>
+                <button class="close-modal" onclick="closeStatModal()">&times;</button>
+            </div>
+            <form id="statForm">
+                <input type="hidden" id="statId">
+                <div class="form-group">
+                    <label class="form-label">Etiket</label>
+                    <input type="text" class="form-input" id="statLabel" required maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Değer</label>
+                    <input type="text" class="form-input" id="statValue" required maxlength="50">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Sıra</label>
+                    <input type="number" class="form-input" id="statOrder" value="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-checkbox">
+                        <input type="checkbox" id="statIsActive" checked>
+                        <span>Aktif</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Feature Modal -->
+    <div id="featureModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="featureModalTitle">Yeni Özellik</h3>
+                <button class="close-modal" onclick="closeFeatureModal()">&times;</button>
+            </div>
+            <form id="featureForm">
+                <input type="hidden" id="featureId">
+                <div class="form-group">
+                    <label class="form-label">Icon (Emoji veya class)</label>
+                    <input type="text" class="form-input" id="featureIcon" required maxlength="10">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Başlık</label>
+                    <input type="text" class="form-input" id="featureTitle" required maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Açıklama</label>
+                    <textarea class="form-textarea" id="featureDescription" required maxlength="500"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Sıra</label>
+                    <input type="number" class="form-input" id="featureOrder" value="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-checkbox">
+                        <input type="checkbox" id="featureIsActive" checked>
+                        <span>Aktif</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sponsor Modal -->
+    <div id="sponsorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="sponsorModalTitle">Yeni Sponsor</h3>
+                <button class="close-modal" onclick="closeSponsorModal()">&times;</button>
+            </div>
+            <form id="sponsorForm">
+                <input type="hidden" id="sponsorId">
+                <div class="form-group">
+                    <label class="form-label">Sponsor Adı</label>
+                    <input type="text" class="form-input" id="sponsorName" required maxlength="200">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Logo URL</label>
+                    <input type="url" class="form-input" id="sponsorLogoUrl" required maxlength="500">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Website URL</label>
+                    <input type="url" class="form-input" id="sponsorWebsiteUrl" maxlength="500">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Açıklama</label>
+                    <textarea class="form-textarea" id="sponsorDescription" maxlength="1000"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Sıra</label>
+                    <input type="number" class="form-input" id="sponsorOrder" value="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-checkbox">
+                        <input type="checkbox" id="sponsorIsActive" checked>
+                        <span>Aktif</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- App Link Modal -->
+    <div id="appLinkModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="appLinkModalTitle">Yeni Uygulama Linki</h3>
+                <button class="close-modal" onclick="closeAppLinkModal()">&times;</button>
+            </div>
+            <form id="appLinkForm">
+                <input type="hidden" id="appLinkId">
+                <div class="form-group">
+                    <label class="form-label">Platform</label>
+                    <select class="form-select" id="appLinkPlatform" required>
+                        <option value="">Seçin</option>
+                        <option value="iOS">iOS</option>
+                        <option value="Android">Android</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">URL</label>
+                    <input type="url" class="form-input" id="appLinkUrl" required maxlength="500">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Buton Metni</label>
+                    <input type="text" class="form-input" id="appLinkButtonText" required maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label class="form-checkbox">
+                        <input type="checkbox" id="appLinkIsActive" checked>
+                        <span>Aktif</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/admin-homepage.js"></script>
+</body>
+</html>

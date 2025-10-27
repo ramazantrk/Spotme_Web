@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahalle App - Gizlilik Politikası</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="svg" sizes="16x16" href="/wwwroot/images/logo2.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1F2937;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #8B5CF6 0%, #667eea 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        /* Navigation */
+        .nav-links {
+            background: #F8FAFC;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #E5E7EB;
+            position: sticky;
+            top: 120px;
+            z-index: 99;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            background: #8B5CF6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            background: #7C3AED;
+            transform: translateY(-2px);
+        }
+
+        /* Content */
+        .content {
+            padding: 2rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 2.5rem;
+            background: #FAFBFC;
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            color: #8B5CF6;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h3 {
+            font-size: 1.3rem;
+            color: #374151;
+            margin: 1.5rem 0 0.8rem 0;
+            font-weight: 600;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: #4B5563;
+            font-size: 1rem;
+        }
+
+        .section ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .section li {
+            margin-bottom: 0.5rem;
+            color: #4B5563;
+        }
+
+        /* Highlight boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, #EDE9FE 0%, #F3E8FF 100%);
+            border: 2px solid #8B5CF6;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box h4 {
+            color: #8B5CF6;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #FEF3E2 0%, #FEF7ED 100%);
+            border: 2px solid #F59E0B;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box h4 {
+            color: #F59E0B;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Contact info */
+        .contact-info {
+            background: linear-gradient(135deg, #F0FDF4 0%, #ECFDF5 100%);
+            border: 2px solid #10B981;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .contact-info h3 {
+            color: #10B981;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info a {
+            color: #10B981;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Last updated */
+        .last-updated {
+            text-align: center;
+            padding: 1.5rem;
+            background: #F9FAFB;
+            border-radius: 12px;
+            margin: 2rem 0;
+            color: #6B7280;
+            font-style: italic;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #8B5CF6;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        th {
+            background: #8B5CF6;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #F9FAFB;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .nav-links a {
+                display: block;
+                margin: 0.5rem 0;
+            }
+
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+            }
+
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr {
+                border: 1px solid #ccc;
+                margin-bottom: 10px;
+            }
+
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                font-weight: bold;
+                color: #8B5CF6;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-shield-alt"></i> Mahalle App</h1>
+            <p>Gizlilik Politikası</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-links">
+            <a href="terms.html"><i class="fas fa-file-contract"></i> Kullanım Şartları</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> İletişim</a>
+        </nav>
+
+        <!-- Content -->
+        <div class="content">
+            <section class="section">
+                <h2><i class="fas fa-shield-alt"></i> Gizlilik Politikası</h2>
+                <div class="highlight-box">
+                    <h4><i class="fas fa-heart"></i> Taahhüdümüz</h4>
+                    <p>Kişisel verilerinizin korunması bizim için önceliktir. Bu politika, verilerinizi nasıl topladığımızı, kullandığımızı ve koruduğumuzu açıklar.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-database"></i> 1. Topladığımız Bilgiler</h2>
+                
+                <h3>1.1 Kişisel Bilgiler</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Bilgi Türü</th>
+                            <th>Açıklama</th>
+                            <th>Kullanım Amacı</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Bilgi Türü">Ad Soyad</td>
+                            <td data-label="Açıklama">Hesap oluştururken verilen isim bilgisi</td>
+                            <td data-label="Kullanım Amacı">Profil oluşturma ve kimlik doğrulama</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Bilgi Türü">E-posta</td>
+                            <td data-label="Açıklama">Hesap kaydı için e-posta adresi</td>
+                            <td data-label="Kullanım Amacı">İletişim ve hesap güvenliği</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Bilgi Türü">Telefon</td>
+                            <td data-label="Açıklama">İsteğe bağlı telefon numarası</td>
+                            <td data-label="Kullanım Amacı">İletişim ve güvenlik doğrulaması</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Bilgi Türü">Profil Fotoğrafı</td>
+                            <td data-label="Açıklama">İsteğe bağlı profil resmi</td>
+                            <td data-label="Kullanım Amacı">Profil kişiselleştirmesi</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>1.2 Kullanım Bilgileri</h3>
+                <ul>
+                    <li>Uygulama kullanım sıklığı ve süresi</li>
+                    <li>Tıklanan bağlantılar ve özellikler</li>
+                    <li>Arama terimleri ve gezinme geçmişi</li>
+                    <li>Cihaz bilgileri (model, işletim sistemi, IP adresi)</li>
+                </ul>
+
+                <h3>1.3 Konum Bilgileri</h3>
+                <div class="warning-box">
+                    <h4><i class="fas fa-map-marker-alt"></i> Konum İzinleri</h4>
+                    <p>Konum bilgilerinizi sadece açık izninizle toplarız. Bu bilgiler yakınımdaki ilanları göstermek ve konuma dayalı hizmetler sunmak için kullanılır.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-cogs"></i> 2. Bilgileri Nasıl Kullanırız</h2>
+                
+                <h3>2.1 Ana Kullanım Amaçları</h3>
+                <ul>
+                    <li><strong>Hizmet Sunumu:</strong> Uygulamanın temel özelliklerini sağlamak</li>
+                    <li><strong>Kişiselleştirme:</strong> Size özel içerik ve öneriler sunmak</li>
+                    <li><strong>İletişim:</strong> Önemli güncellemeler ve bildirimler göndermek</li>
+                    <li><strong>Güvenlik:</strong> Hesap güvenliğini sağlamak ve dolandırıcılığı önlemek</li>
+                    <li><strong>Analiz:</strong> Uygulama performansını iyileştirmek</li>
+                </ul>
+
+                <h3>2.2 Pazarlama ve İletişim</h3>
+                <p>E-posta ile pazarlama mesajları göndermeden önce onayınızı alırız. Bu mesajlardan istediğiniz zaman çıkabilirsiniz.</p>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-share-alt"></i> 3. Bilgi Paylaşımı</h2>
+                
+                <div class="highlight-box">
+                    <h4><i class="fas fa-lock"></i> Paylaşım İlkemiz</h4>
+                    <p>Kişisel bilgilerinizi üçüncü taraflarla satmıyoruz, kiralamıyoruz veya pazarlama amaçlı paylaşmıyoruz.</p>
+                </div>
+
+                <h3>3.1 Sınırlı Paylaşım Durumları</h3>
+                <ul>
+                    <li><strong>Yasal Zorunluluk:</strong> Mahkeme kararı veya yasal süreç gereği</li>
+                    <li><strong>Güvenlik:</strong> Dolandırıcılık veya güvenlik ihlallerini önlemek için</li>
+                    <li><strong>Hizmet Sağlayıcıları:</strong> Bizim adımıza çalışan güvenilir üçüncü taraflar</li>
+                </ul>
+
+                <h3>3.2 Hizmet Sağlayıcıları</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hizmet</th>
+                            <th>Sağlayıcı Türü</th>
+                            <th>Paylaşılan Veri</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Hizmet">Cloud Depolama</td>
+                            <td data-label="Sağlayıcı Türü">AWS/Google Cloud</td>
+                            <td data-label="Paylaşılan Veri">Şifrelenmiş kullanıcı verileri</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Hizmet">Analitik</td>
+                            <td data-label="Sağlayıcı Türü">Firebase Analytics</td>
+                            <td data-label="Paylaşılan Veri">Anonim kullanım istatistikleri</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Hizmet">Push Bildirimler</td>
+                            <td data-label="Sağlayıcı Türü">Firebase Cloud Messaging</td>
+                            <td data-label="Paylaşılan Veri">Cihaz tokenleri</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-shield-alt"></i> 4. Veri Güvenliği</h2>
+                
+                <h3>4.1 Teknik Güvenlik Önlemleri</h3>
+                <ul>
+                    <li><strong>SSL/TLS Şifreleme:</strong> Tüm veri transferleri şifrelenir</li>
+                    <li><strong>Veri Tabanı Güvenliği:</strong> Çok katmanlı güvenlik duvarları</li>
+                    <li><strong>Erişim Kontrolü:</strong> Sınırlı personel erişimi</li>
+                    <li><strong>Düzenli Güvenlik Testleri:</strong> Sürekli güvenlik denetimleri</li>
+                </ul>
+
+                <h3>4.2 Şifre Güvenliği</h3>
+                <div class="warning-box">
+                    <h4><i class="fas fa-key"></i> Güçlü Şifre Önerileri</h4>
+                    <ul>
+                        <li>En az 8 karakter uzunluğunda</li>
+                        <li>Büyük ve küçük harf karışımı</li>
+                        <li>Sayı ve özel karakterler içermeli</li>
+                        <li>Kişisel bilgiler içermemeli</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-user-cog"></i> 5. Kullanıcı Hakları</h2>
+                
+                <h3>5.1 KVKK Hakları</h3>
+                <p>6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında aşağıdaki haklarınız bulunmaktadır:</p>
+                
+                <ul>
+                    <li><strong>Bilgilendirilme Hakkı:</strong> Verilerinizin nasıl işlendiğini öğrenme</li>
+                    <li><strong>Erişim Hakkı:</strong> Hangi verilerinizin tutulduğunu görme</li>
+                    <li><strong>Düzeltme Hakkı:</strong> Yanlış bilgilerin düzeltilmesini isteme</li>
+                    <li><strong>Silme Hakkı:</strong> Verilerinizin silinmesini talep etme</li>
+                    <li><strong>İtiraz Hakkı:</strong> Veri işlemeye itiraz etme</li>
+                    <li><strong>Taşınabilirlik Hakkı:</strong> Verilerinizi başka platforma taşıma</li>
+                </ul>
+
+                <h3>5.2 Hakları Kullanma</h3>
+                <p>Bu hakları kullanmak için aşağıdaki iletişim bilgilerinden bize ulaşabilirsiniz. Talebinizi 30 gün içinde yanıtlayacağız.</p>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-cookie-bite"></i> 6. Çerezler (Cookies)</h2>
+                
+                <h3>6.1 Çerez Türleri</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Çerez Türü</th>
+                            <th>Amaç</th>
+                            <th>Süre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Çerez Türü">Gerekli Çerezler</td>
+                            <td data-label="Amaç">Temel uygulama fonksiyonları</td>
+                            <td data-label="Süre">Oturum süresi</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Çerez Türü">Performans Çerezleri</td>
+                            <td data-label="Amaç">Uygulama performansını izleme</td>
+                            <td data-label="Süre">1 yıl</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Çerez Türü">Kişiselleştirme</td>
+                            <td data-label="Amaç">Kullanıcı tercihlerini hatırlama</td>
+                            <td data-label="Süre">6 ay</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>6.2 Çerez Yönetimi</h3>
+                <p>Uygulama ayarlarından çerez tercihlerinizi yönetebilirsiniz. Bazı çerezleri devre dışı bırakmanız durumunda uygulama özelliklerinin sınırlı çalışabileceğini unutmayın.</p>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-clock"></i> 7. Veri Saklama</h2>
+                
+                <h3>7.1 Saklama Süreleri</h3>
+                <ul>
+                    <li><strong>Hesap Verileri:</strong> Hesap aktif olduğu sürece</li>
+                    <li><strong>İlan Verileri:</strong> İlan yayında olduğu süre + 1 yıl</li>
+                    <li><strong>Mesaj Geçmişi:</strong> 3 yıl</li>
+                    <li><strong>Log Kayıtları:</strong> 6 ay</li>
+                    <li><strong>Analitik Veriler:</strong> 2 yıl (anonim)</li>
+                </ul>
+
+                <h3>7.2 Hesap Silme</h3>
+                <div class="highlight-box">
+                    <h4><i class="fas fa-trash-alt"></i> Hesap Silme Süreci</h4>
+                    <p>Hesabınızı silmek istediğinizde, tüm kişisel verileriniz 30 gün içinde sistemden kalıcı olarak kaldırılır. Bu süre içinde hesabınızı geri getirebilirsiniz.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-child"></i> 8. Çocukların Gizliliği</h2>
+                <p>Uygulamamız 13 yaş altındaki çocuklara yönelik değildir. Bilerek 13 yaş altındaki çocuklardan kişisel bilgi toplamayız. Eğer 13 yaşından küçük bir çocuğun kişisel bilgilerini topladığımızı öğrenirsek, bu bilgileri derhal sileriz.</p>
+                
+                <h3>8.1 Ebeveyn Kontrolü</h3>
+                <p>13-18 yaş arası kullanıcılar için ebeveyn onayı gereklidir. Ebeveynler çocuklarının hesap bilgilerine erişebilir ve hesabı kapatabilirler.</p>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-globe"></i> 9. Uluslararası Veri Transferi</h2>
+                <p>Verileriniz Türkiye sınırları içinde saklanır. Ancak hizmet sağlayıcılarımızın bir kısmı uluslararası şirketler olabilir. Bu durumda verileriniz uygun güvenlik önlemleri ile transfer edilir.</p>
+                
+                <h3>9.1 Güvenlik Önlemleri</h3>
+                <ul>
+                    <li>Veri transfer sözleşmeleri</li>
+                    <li>Uluslararası güvenlik standartları</li>
+                    <li>Düzenli güvenlik denetimleri</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-edit"></i> 10. Politika Değişiklikleri</h2>
+                <p>Bu gizlilik politikasını zaman zaman güncelleyebiliriz. Önemli değişiklikler durumunda:</p>
+                
+                <ul>
+                    <li>Uygulama içinde bildirim göndeririz</li>
+                    <li>E-posta ile bilgilendirme yaparız</li>
+                    <li>Bu sayfada güncellemeleri yayınlarız</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <h4><i class="fas fa-bell"></i> Önemli Not</h4>
+                    <p>Politika değişikliklerini takip etmeniz önemlidir. Güncellemelerden sonra uygulamayı kullanmaya devam etmeniz yeni politikayı kabul ettiğiniz anlamına gelir.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-question-circle"></i> 11. Sık Sorulan Sorular</h2>
+                
+                <div class="highlight-box">
+                    <h4><i class="fas fa-user-shield"></i> Verilerim gerçekten güvenli mi?</h4>
+                    <p>Evet, tüm verileriniz endüstri standardı güvenlik önlemleri ile korunmaktadır. Bankacılık sektöründe kullanılan SSL şifreleme teknologisini kullanıyoruz.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4><i class="fas fa-eye-slash"></i> Verilerimi kimler görebilir?</h4>
+                    <p>Kişisel verilerinize sadece yetkili personelimiz erişebilir. Bu erişimler loglanır ve düzenli olarak denetlenir.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4><i class="fas fa-download"></i> Verilerimi nasıl indirebilirim?</h4>
+                    <p>Ayarlar > Veri İndirme sekmesinden tüm verilerinizi JSON formatında indirebilirsiniz. Bu işlem 48 saat içinde tamamlanır.</p>
+                </div>
+            </section>
+
+            <div id="contact" class="contact-info">
+                <h3><i class="fas fa-user-shield"></i> Veri Koruma ve İletişim</h3>
+                <p>KVKK ile ilgili sorular için: <a href="mailto:kvkk@mahalle.app">kvkk@mahalle.app</a></p>
+                <p>Genel sorular için: <a href="mailto:info@mahalle.app">info@mahalle.app</a></p>
+                <p>Güvenlik bildirimleri: <a href="mailto:security@mahalle.app">security@mahalle.app</a></p>
+                <p>Uygulama Geliştirici: Mahalle App</p>
+            </div>
+
+            <div class="last-updated">
+                <i class="fas fa-calendar"></i> Son Güncelleme: 18 Eylül 2025
+            </div>
+        </div>
+
+        <!-- Back to top button -->
+        <button class="back-to-top" onclick="scrollToTop()">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+    </div>
+
+    <script>
+        // Back to top functionality
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show/hide back to top button
+        window.addEventListener('scroll', function() {
+            const backToTopButton = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

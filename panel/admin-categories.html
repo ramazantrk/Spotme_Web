@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategori Yönetimi | Admin Panel</title>
+   
+
+    <link rel="stylesheet" href="css/admin-header.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/admin-categories.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <script type="module" src="js/admin-header.js"></script>
+         <div id="header-placeholder"></div>
+
+
+        <div class="main-content">
+            <!-- Category Form Section -->
+            <div class="glass-card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-plus-circle"></i>
+                        Yeni Kategori
+                    </h2>
+                </div>
+
+                <form id="categoryForm">
+                    <div class="form-group">
+                        <label class="form-label" for="categoryName">Kategori Adı</label>
+                        <input 
+                            type="text" 
+                            id="categoryName" 
+                            class="form-control" 
+                            placeholder="Örn: Elektronik" 
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Renk Seçimi</label>
+                        <div class="color-picker-group">
+                            <div class="color-preview" id="colorPreview" style="background-color: #667eea;"></div>
+                            <input type="color" id="categoryColor" class="color-input" value="#667eea">
+                            <input type="text" id="colorValue" class="form-control" value="#667eea" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+    <label class="form-label">İkon Seçimi</label>
+    <div class="icon-selector-preview" onclick="IconPicker.open('create')">
+        <div class="selected-icon-display" id="selectedIcon" data-icon="th">
+            <i class="fas fa-th"></i>
+            <span>th</span>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm">
+            <i class="fas fa-search"></i> İkon Seç
+        </button>
+    </div>
+</div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-plus"></i>
+                        Kategori Ekle
+                    </button>
+                </form>
+
+                <!-- Debug Panel -->
+                <div class="debug-panel">
+                    <h4><i class="fas fa-info-circle"></i> Sistem Durumu</h4>
+                    <div id="debugInfo">API bağlantısı kontrol ediliyor...</div>
+                </div>
+            </div>
+
+            <!-- Categories Section -->
+            <div class="glass-card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-list"></i>
+                        Kategoriler
+                        <span id="categoryCount" class="btn btn-xs btn-secondary" style="margin-left: 10px;">0</span>
+                    </h2>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="filter-tabs">
+                    <button type="button" class="filter-tab active" data-filter="all">
+                        <i class="fas fa-th-large"></i> Tümü
+                    </button>
+                    <button type="button" class="filter-tab" data-filter="active">
+                        <i class="fas fa-check-circle"></i> Aktif
+                    </button>
+                    <button type="button" class="filter-tab" data-filter="inactive">
+                        <i class="fas fa-pause-circle"></i> Pasif
+                    </button>
+                </div>
+
+                <!-- Search Box -->
+                <div class="search-box-category">
+                    <input type="text" id="searchCategories" placeholder="Kategori ara...">
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <!-- Categories Grid -->
+                <div class="categories-grid" id="categoriesGrid">
+                    <!-- Categories will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Icon Picker Modal -->
+    <div id="iconPickerModal" class="modal">
+        <div class="modal-content icon-picker-modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-icons"></i> İkon Seçin</h3>
+                <button class="close-btn" onclick="IconPicker.close()">&times;</button>
+            </div>
+            
+            <div class="icon-picker-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="iconSearch" placeholder="İkon ara... (örn: araba, ev, telefon)">
+            </div>
+
+            <div class="icon-picker-categories">
+                <button class="icon-category-tab active" data-category="all">
+                    <i class="fas fa-th"></i> Tümü
+                </button>
+                <button class="icon-category-tab" data-category="business">
+                    <i class="fas fa-briefcase"></i> İş
+                </button>
+                <button class="icon-category-tab" data-category="transport">
+                    <i class="fas fa-car"></i> Ulaşım
+                </button>
+                <button class="icon-category-tab" data-category="home">
+                    <i class="fas fa-home"></i> Ev
+                </button>
+                <button class="icon-category-tab" data-category="tech">
+                    <i class="fas fa-laptop"></i> Teknoloji
+                </button>
+                <button class="icon-category-tab" data-category="social">
+                    <i class="fas fa-users"></i> Sosyal
+                </button>
+                <button class="icon-category-tab" data-category="other">
+                    <i class="fas fa-ellipsis-h"></i> Diğer
+                </button>
+            </div>
+
+            <div class="icon-picker-grid" id="iconPickerGrid">
+                <!-- Icons will be loaded here -->
+            </div>
+
+            <div class="icon-picker-footer">
+                <span id="iconPickerCount">0 ikon gösteriliyor</span>
+                <button class="btn btn-secondary" onclick="IconPicker.close()">İptal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-edit"></i> Kategoriyi Düzenle</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="editCategoryForm">
+                <input type="hidden" id="editCategoryId">
+                <div class="form-group">
+                    <label class="form-label" for="editCategoryName">Kategori Adı</label>
+                    <input type="text" id="editCategoryName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Renk</label>
+                    <div class="color-picker-group">
+                        <div class="color-preview" id="editColorPreview"></div>
+                        <input type="color" id="editCategoryColor" class="color-input">
+                        <input type="text" id="editColorValue" class="form-control" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">İkon</label>
+                    <div class="icon-selector-preview" onclick="IconPicker.open('edit')">
+                      <div class="selected-icon-display" id="editSelectedIcon" data-icon="th">
+    <i class="fas fa-th"></i>
+    <span>th</span>
+</div>
+                        <button type="button" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-search"></i> İkon Seç
+                        </button>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px; margin-top: 25px;">
+                    <button type="submit" class="btn btn-success" style="flex: 1;">
+                        <i class="fas fa-save"></i>
+                        Güncelle
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">
+                        <i class="fas fa-times"></i>
+                        İptal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <span style="color: #2d3748; font-weight: 600; font-size: 1.1rem;">İşlem yapılıyor...</span>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script type="module" src="js/admin-categories.js"></script>
+    <script>
+    // Global fonksiyonları tanımlıyoruz
+    // Bu, HTML içindeki onclick event'lerinin çalışması için gereklidir
+    window.FormManager = FormManager;
+    window.AuthManager = AuthManager;
+</script>
+</body>
+</html>

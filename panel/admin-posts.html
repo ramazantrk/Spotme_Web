@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İlan Yönetimi | Admin Panel</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin-header.css">
+    <link rel="stylesheet" href="css/admin-post.css">
+</head>
+<body>
+    <script type="module" src="js/admin-header.js"></script>
+    <div id="header-placeholder"></div>
+    
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="header-content">
+                <h1><i class="fas fa-newspaper"></i> İlan Yönetimi</h1>
+                <p>Sistemdeki ilanları görüntüleyin, düzenleyin ve yönetin</p>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-number" id="totalPosts">0</div>
+                    <div class="stat-label">Toplam İlan</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-number" id="activePosts">0</div>
+                    <div class="stat-label">Aktif İlan</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-number" id="pendingPosts">0</div>
+                    <div class="stat-label">Bekleyen İlan</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-number" id="todayPosts">0</div>
+                    <div class="stat-label">Bugün Eklenen</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="glass-card filters-section">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label><i class="fas fa-search"></i> Ara</label>
+                    <input type="text" id="searchInput" placeholder="İlan başlığı, açıklama veya kullanıcı..." class="filter-input">
+                </div>
+
+                <div class="filter-group">
+                    <label><i class="fas fa-filter"></i> Durum</label>
+                    <select id="statusFilter" class="filter-select">
+                        <option value="all">Tümü</option>
+                        <option value="active">Aktif</option>
+                        <option value="inactive">Pasif</option>
+                        <option value="draft">Taslak</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label><i class="fas fa-tag"></i> Kategori</label>
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="all">Tüm Kategoriler</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label><i class="fas fa-sort"></i> Sıralama</label>
+                    <select id="sortFilter" class="filter-select">
+                        <option value="newest">En Yeni</option>
+                        <option value="oldest">En Eski</option>
+                        <option value="price-high">Fiyat (Yüksek)</option>
+                        <option value="price-low">Fiyat (Düşük)</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <button class="btn btn-secondary" onclick="resetFilters()">
+                        <i class="fas fa-redo"></i> Sıfırla
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Posts Table -->
+        <div class="glass-card">
+            <div class="table-header">
+                <h3><i class="fas fa-list"></i> İlan Listesi</h3>
+                <div class="table-actions">
+                    <button class="btn btn-primary btn-sm" onclick="refreshPosts()">
+                        <i class="fas fa-sync-alt"></i> Yenile
+                    </button>
+                </div>
+            </div>
+
+            <div id="postsTableContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>İlanlar yükleniyor...</p>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="paginationContainer" style="display: none;">
+                <button class="btn btn-secondary btn-sm" id="prevPage" onclick="changePage(-1)">
+                    <i class="fas fa-chevron-left"></i> Önceki
+                </button>
+                <span class="page-info" id="pageInfo">Sayfa 1 / 1</span>
+                <button class="btn btn-secondary btn-sm" id="nextPage" onclick="changePage(1)">
+                    Sonraki <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-newspaper"></i> İlan Detayları</h2>
+                <span class="close" onclick="closePostDetailModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="postDetailContent">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="js/admin-post.js"></script>
+</body>
+</html>

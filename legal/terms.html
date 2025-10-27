@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahalle App - Kullanım Şartları</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="svg" sizes="16x16" href="/wwwroot/images/logo2.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1F2937;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #8B5CF6 0%, #667eea 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        /* Navigation */
+        .nav-links {
+            background: #F8FAFC;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #E5E7EB;
+            position: sticky;
+            top: 120px;
+            z-index: 99;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            background: #8B5CF6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            background: #7C3AED;
+            transform: translateY(-2px);
+        }
+
+        /* Content */
+        .content {
+            padding: 2rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 2.5rem;
+            background: #FAFBFC;
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            color: #8B5CF6;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h3 {
+            font-size: 1.3rem;
+            color: #374151;
+            margin: 1.5rem 0 0.8rem 0;
+            font-weight: 600;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: #4B5563;
+            font-size: 1rem;
+        }
+
+        .section ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .section li {
+            margin-bottom: 0.5rem;
+            color: #4B5563;
+        }
+
+        /* Highlight boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, #EDE9FE 0%, #F3E8FF 100%);
+            border: 2px solid #8B5CF6;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box h4 {
+            color: #8B5CF6;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #FEF3E2 0%, #FEF7ED 100%);
+            border: 2px solid #F59E0B;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box h4 {
+            color: #F59E0B;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Contact info */
+        .contact-info {
+            background: linear-gradient(135deg, #F0FDF4 0%, #ECFDF5 100%);
+            border: 2px solid #10B981;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .contact-info h3 {
+            color: #10B981;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info a {
+            color: #10B981;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Last updated */
+        .last-updated {
+            text-align: center;
+            padding: 1.5rem;
+            background: #F9FAFB;
+            border-radius: 12px;
+            margin: 2rem 0;
+            color: #6B7280;
+            font-style: italic;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #8B5CF6;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .nav-links a {
+                display: block;
+                margin: 0.5rem 0;
+            }
+
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-home"></i> Mahalle App</h1>
+            <p>Kullanım Şartları</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-links">
+            <a href="privacy.html"><i class="fas fa-shield-alt"></i> Gizlilik Politikası</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> İletişim</a>
+        </nav>
+
+        <!-- Content -->
+        <div class="content">
+            <section class="section">
+                <h2><i class="fas fa-handshake"></i> Kullanım Şartları</h2>
+                <div class="highlight-box">
+                    <h4><i class="fas fa-info-circle"></i> Önemli Bilgi</h4>
+                    <p>Bu kullanım şartları, Mahalle App uygulamasını kullanarak kabul etmiş olduğunuz yasal bir sözleşmedir. Lütfen dikkatlice okuyun.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-user-check"></i> 1. Kabul ve Onay</h2>
+                <p>Mahalle App uygulamasını indirerek, yükleyerek veya kullanarak, bu kullanım şartlarını tamamen okuduğunuzu, anladığınızı ve kabul ettiğinizi beyan edersiniz.</p>
+                
+                <h3>1.1 Şartların Güncellenmesi</h3>
+                <p>Bu şartları zaman zaman güncelleyebiliriz. Önemli değişiklikler durumunda size bildirimde bulunacağız.</p>
+                
+                <h3>1.2 Yaş Sınırı</h3>
+                <p>Bu uygulamayı kullanmak için en az 18 yaşında olmanız gerekmektedir. 18 yaşından küçükseniz, ebeveyn veya yasal vasi izni ile kullanabilirsiniz.</p>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-mobile-alt"></i> 2. Uygulama Kullanımı</h2>
+                
+                <h3>2.1 İzin Verilen Kullanım</h3>
+                <ul>
+                    <li>Kişisel, ticari olmayan amaçlarla kullanım</li>
+                    <li>Yasal ilanlar ve içerik paylaşımı</li>
+                    <li>Diğer kullanıcılarla saygılı iletişim</li>
+                    <li>Topluluk kurallarına uygun davranış</li>
+                </ul>
+
+                <h3>2.2 Yasak Faaliyetler</h3>
+                <div class="warning-box">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Şu faaliyetler kesinlikle yasaktır:</h4>
+                    <ul>
+                        <li>Sahte, aldatıcı veya yanıltıcı içerik paylaşımı</li>
+                        <li>Spam, reklam veya istenmeyen mesaj gönderimi</li>
+                        <li>Başka kullanıcıları taciz etme veya rahatsız etme</li>
+                        <li>Telif hakkı ihlali yapan içerik paylaşımı</li>
+                        <li>Illegal veya zararlı malzeme paylaşımı</li>
+                        <li>Uygulamaya zarar verme veya güvenlik açığı arama</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-user-circle"></i> 3. Hesap Sorumluluğu</h2>
+                
+                <h3>3.1 Hesap Güvenliği</h3>
+                <p>Hesap bilgilerinizi güvenli tutmak sizin sorumluluğunuzdadır. Şifrenizi kimseyle paylaşmamalı ve güçlü bir şifre kullanmalısınız.</p>
+                
+                <h3>3.2 Hesap Faaliyetleri</h3>
+                <p>Hesabınızla gerçekleştirilen tüm faaliyetlerden siz sorumlusunuz. Yetkisiz kullanım durumunda derhal bize bildiriniz.</p>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-copyright"></i> 4. Fikri Mülkiyet</h2>
+                <p>Mahalle App ve tüm içerikleri telif hakkı koruması altındadır. Uygulama, logolar, tasarımlar ve içerikler uygulama geliştiricisinin mülkiyetindedir.</p>
+                
+                <h3>4.1 Kullanıcı İçerikleri</h3>
+                <p>Paylaştığınız içeriklerin telif haklarına saygı göstermeli ve gerekli izinlere sahip olmalısınız.</p>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-ban"></i> 5. Hesap Askıya Alma ve Sonlandırma</h2>
+                <p>Bu şartları ihlal etmeniz durumunda, hesabınızı uyarı vermeksizin askıya alabilir veya kalıcı olarak kapatabilir.</p>
+                
+                <div class="highlight-box">
+                    <h4><i class="fas fa-gavel"></i> Sonlandırma Sebepleri</h4>
+                    <ul>
+                        <li>Kullanım şartlarının ihlali</li>
+                        <li>Illegal faaliyetlerde bulunma</li>
+                        <li>Diğer kullanıcıları rahatsız etme</li>
+                        <li>Sahte bilgi veya içerik paylaşımı</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-exclamation-circle"></i> 6. Sorumluluk Reddi</h2>
+                <p>Mahalle App "olduğu gibi" sunulmaktadır. Uygulamanın kesintisiz veya hatasız çalışacağını garanti etmiyoruz.</p>
+                
+                <h3>6.1 Üçüncü Taraf İçerikleri</h3>
+                <p>Kullanıcılar tarafından paylaşılan içeriklerden sorumlu değiliz. Bu içeriklerin doğruluğunu garanti etmiyoruz.</p>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-balance-scale"></i> 7. Uygulanacak Hukuk</h2>
+                <p>Bu şartlar Türkiye Cumhuriyeti kanunlarına tabidir. Ortaya çıkabilecek uyuşmazlıklar Türkiye mahkemelerinde çözülecektir.</p>
+            </section>
+
+            <section class="section">
+                <h2><i class="fas fa-edit"></i> 8. Şart Değişiklikleri</h2>
+                <p>Bu kullanım şartlarını zaman zaman güncelleyebiliriz. Değişiklikler:</p>
+                <ul>
+                    <li>Uygulama içinde bildirim ile duyurulur</li>
+                    <li>Bu sayfada yayınlanır</li>
+                    <li>Önemli değişikliklerde e-posta ile bildirilir</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <h4><i class="fas fa-bell"></i> Önemli Not</h4>
+                    <p>Şart değişikliklerinden sonra uygulamayı kullanmaya devam etmeniz yeni şartları kabul ettiğiniz anlamına gelir.</p>
+                </div>
+            </section>
+
+            <div id="contact" class="contact-info">
+                <h3><i class="fas fa-envelope"></i> İletişim</h3>
+                <p>Sorularınız için: <a href="mailto:info@mahalle.app">info@mahalle.app</a></p>
+                <p>Uygulama Geliştirici: Mahalle App</p>
+            </div>
+
+            <div class="last-updated">
+                <i class="fas fa-calendar"></i> Son Güncelleme: 18 Eylül 2025
+            </div>
+        </div>
+
+        <!-- Back to top button -->
+        <button class="back-to-top" onclick="scrollToTop()">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+    </div>
+
+    <script>
+        // Back to top functionality
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show/hide back to top button
+        window.addEventListener('scroll', function() {
+            const backToTopButton = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

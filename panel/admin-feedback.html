@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geri Bildirim Yönetimi - Admin Panel</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin-header.css">
+    <link rel="stylesheet" href="css/admin-feedback.css">
+</head>
+<body>
+    <div class="container">
+        <script type="module" src="js/admin-header.js"></script>
+         <div id="header-placeholder"></div>
+
+        <div class="cors-warning" id="corsWarning">
+            <h3><i class="fas fa-exclamation-triangle"></i> CORS Hatası Tespit Edildi</h3>
+            <p>API'nize erişirken CORS (Cross-Origin Resource Sharing) hatası oluşuyor.</p>
+            <p>API URL: <code>http://localhost:5000/api/UserFeedback</code></p>
+        </div>
+
+
+
+ 
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-number" id="totalFeedbacks">-</span>
+                <div class="stat-label">Toplam Geri Bildirim</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="pendingFeedbacks">-</span>
+                <div class="stat-label">Bekleyen</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="resolvedFeedbacks">-</span>
+                <div class="stat-label">Çözülmüş</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="todayFeedbacks">-</span>
+                <div class="stat-label">Bugün</div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label>Durum</label>
+                <select class="filter-select" id="statusFilter">
+                    <option value="">Tümü</option>
+                    <option value="pending">Bekleyen</option>
+                    <option value="resolved">Çözülmüş</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Tür</label>
+                <select class="filter-select" id="typeFilter">
+                    <option value="">Tümü</option>
+                    <option value="bug">Hata</option>
+                    <option value="suggestion">Öneri</option>
+                    <option value="general">Genel</option>
+                    <option value="complaint">Şikayet</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Kullanıcı Ara</label>
+                <input type="text" class="filter-input" id="searchFilter" placeholder="İsim veya email...">
+            </div>
+            <div class="filter-group">
+                <label>Tarih</label>
+                <input type="date" class="filter-input" id="dateFilter">
+            </div>
+        </div>
+
+        <div class="feedback-list" id="feedbackList">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>API bağlantısı kontrol ediliyor...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="responseModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h3 class="modal-title">Geri Bildirimi Yanıtla</h3>
+                <p id="modalUserInfo"></p>
+            </div>
+            <form id="responseForm">
+                <input type="hidden" id="feedbackId">
+                <div class="form-group">
+                    <label class="form-label">Yanıt Mesajı</label>
+                    <textarea class="form-control" id="responseMessage" placeholder="Kullanıcıya gönderilecek yanıt mesajını yazın..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="markAsResolved" checked>
+                        Bu geri bildirimi çözülmüş olarak işaretle
+                    </label>
+                </div>
+                <div class="feedback-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Yanıtı Gönder
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">
+                        İptal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/admin-feedback.js"></script>
+</body>
+</html>

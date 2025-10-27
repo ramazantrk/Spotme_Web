@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Admin Panel</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin-header.css">
+    <link rel="stylesheet" href="css/admin-dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <script type="module" src="js/admin-header.js"></script>
+        <div id="header-placeholder"></div>
+
+        <!-- Welcome Section -->
+        <div class="dashboard-welcome">
+            <h1><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
+            <p>LocalConnect yönetim paneline hoş geldiniz. İşte sistem durumunuzun genel görünümü.</p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card users glass-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number">0</div>
+                <div class="stat-label">Toplam Kullanıcı</div>
+                <div class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i> 0%
+                </div>
+            </div>
+
+            <div class="stat-card posts glass-card">
+                <div class="stat-icon">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="stat-number">0</div>
+                <div class="stat-label">Aktif İlanlar</div>
+                <div class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i> 0%
+                </div>
+            </div>
+
+            <div class="stat-card categories glass-card">
+                <div class="stat-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <div class="stat-number">0</div>
+                <div class="stat-label">Kategoriler</div>
+                <div class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i> +0
+                </div>
+            </div>
+
+            <div class="stat-card revenue glass-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-number">₺0</div>
+                <div class="stat-label">Bu Ay Gelir</div>
+                <div class="stat-change negative">
+                    <i class="fas fa-arrow-down"></i> 0%
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-section">
+            <div class="chart-card glass-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">
+                        <i class="fas fa-chart-area"></i>
+                        Kullanıcı Aktivitesi
+                    </h3>
+                    <select class="chart-period">
+                        <option>Son 7 Gün</option>
+                        <option>Son 30 Gün</option>
+                        <option>Son 3 Ay</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="userActivityChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card glass-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">
+                        <i class="fas fa-pie-chart"></i>
+                        Kategori Dağılımı
+                    </h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Section -->
+        <div class="activity-section">
+            <div class="activity-card glass-card">
+                <div class="activity-header">
+                    <i class="fas fa-clock" style="color: white;"></i>
+                    <h3 class="activity-title">Son Aktiviteler</h3>
+                </div>
+                <!-- Aktiviteler buraya dinamik olarak eklenecek -->
+            </div>
+
+            <div class="activity-card glass-card">
+                <div class="activity-header">
+                    <i class="fas fa-exclamation-triangle" style="color: white;"></i>
+                    <h3 class="activity-title">Sistem Durumu</h3>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon new-user">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">Sunucu Durumu: Normal</div>
+                        <div class="activity-time">CPU: %23, RAM: %45</div>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon new-post">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">Veritabanı: Sağlıklı</div>
+                        <div class="activity-time">Son yedekleme: 2 saat önce</div>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon feedback">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">Güvenlik: Aktif</div>
+                        <div class="activity-time">Son tarama: 30 dk önce</div>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon system">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">API Durumu: Çevrimiçi</div>
+                        <div class="activity-time">Yanıt süresi: 125ms</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="glass-card">
+            <h3 style="color: white; margin-bottom: 20px; text-align: center;">
+                <i class="fas fa-bolt"></i>
+                Hızlı İşlemler
+            </h3>
+            <div class="quick-actions">
+                <a href="admin-categories.html" class="action-btn">
+                    <i class="fas fa-plus action-icon"></i>
+                    <span>Yeni Kategori</span>
+                </a>
+                
+                <a href="admin-posts.html" class="action-btn">
+                    <i class="fas fa-newspaper action-icon"></i>
+                    <span>İlanları Yönet</span>
+                </a>
+                
+                <a href="admin-users.html" class="action-btn">
+                    <i class="fas fa-users action-icon"></i>
+                    <span>Kullanıcılar</span>
+                </a>
+                
+                <a href="admin-settings.html" class="action-btn">
+                    <i class="fas fa-cog action-icon"></i>
+                    <span>Sistem Ayarları</span>
+                </a>
+                
+                <a href="admin-reports.html" class="action-btn">
+                    <i class="fas fa-chart-bar action-icon"></i>
+                    <span>Raporlar</span>
+                </a>
+                
+                <a href="admin-feedback.html" class="action-btn">
+                    <i class="fas fa-comments action-icon"></i>
+                    <span>Geri Bildirimler</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <!-- Dashboard API Script -->
+    <script type="module" src="js/admin-dashboard.js"></script>
+</body>
+</html>
