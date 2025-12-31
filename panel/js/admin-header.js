@@ -13,7 +13,7 @@ class AdminHeader {
     // Initialize header
     async init() {
         if (this.isInitialized) return;
-        
+
         try {
             await this.loadHeader();
             this.setupEventListeners();
@@ -31,7 +31,7 @@ class AdminHeader {
     // API helper method
     async apiCall(endpoint, options = {}) {
         const token = localStorage.getItem('adminToken') || sessionStorage.getItem('adminToken');
-        
+
         const defaultOptions = {
             headers: {
                 'Content-Type': 'application/json',
@@ -75,9 +75,9 @@ class AdminHeader {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const headerHTML = await response.text();
-            
+
             document.body.insertAdjacentHTML('afterbegin', headerHTML);
-            
+
             if (!document.querySelector('link[href="css/admin-header.css"]')) {
                 const link = document.createElement('link');
                 link.rel = 'stylesheet';
@@ -143,7 +143,7 @@ class AdminHeader {
             const dropdown = document.getElementById('userDropdown');
             if (dropdown) dropdown.classList.remove('active');
         }
-        
+
         if (!event.target.closest('.notifications-btn') && !event.target.closest('#notificationPanel')) {
             const panel = document.getElementById('notificationPanel');
             if (panel) panel.classList.remove('active');
@@ -169,7 +169,7 @@ class AdminHeader {
             const searchInput = document.getElementById('globalSearch');
             if (searchInput) searchInput.focus();
         }
-        
+
         if (event.key === 'Escape') {
             this.closeAllDropdowns();
         }
@@ -184,7 +184,7 @@ class AdminHeader {
     closeAllDropdowns() {
         const dropdown = document.getElementById('userDropdown');
         const notificationPanel = document.getElementById('notificationPanel');
-        
+
         if (dropdown) dropdown.classList.remove('active');
         if (notificationPanel) notificationPanel.classList.remove('active');
     }
@@ -193,15 +193,15 @@ class AdminHeader {
     loadUserInfo() {
         try {
             const adminUser = JSON.parse(localStorage.getItem('adminUser') || '{}');
-            
+
             if (adminUser.username) {
                 const userNameEl = document.getElementById('userName');
                 const userAvatarEl = document.getElementById('userAvatar');
                 const userRoleEl = document.getElementById('userRole');
-                
+
                 if (userNameEl) userNameEl.textContent = adminUser.username;
                 if (userAvatarEl) userAvatarEl.textContent = adminUser.username.charAt(0).toUpperCase();
-                
+
                 if (userRoleEl) {
                     if (adminUser.isDemo) {
                         userRoleEl.textContent = 'Demo Kullanıcı';
@@ -225,9 +225,10 @@ class AdminHeader {
             'admin-posts.html': 'posts',
             'admin-users.html': 'users',
             'admin-feedback.html': 'feedback',
+            'admin-reports-complaint.html': 'complaints',
 
         };
-        
+
         const pageKey = pageMap[currentPage];
         if (pageKey) {
             this.currentPage = pageKey;
@@ -244,13 +245,13 @@ class AdminHeader {
     async loadNotifications() {
         try {
             const response = await this.apiCall('/admin/notifications');
-            
+
             if (response && response.notifications) {
                 this.notifications = response.notifications;
             } else {
                 this.notifications = [];
             }
-            
+
             this.updateNotificationCount();
             this.updateNotificationPanel();
         } catch (error) {
@@ -299,10 +300,29 @@ class AdminHeader {
             } catch (error) {
                 console.error('Error loading users count:', error);
             }
+            // Şikayetleri çek (admin-header.js içinde loadBadgeCounts fonksiyonuna ekle)
+           // Şikayetleri çek (loadBadgeCounts içindeki düzeltilmiş kısım)
+            try {
+                const complaintsResponse = await this.apiCall('/Report/admin/all');
+                
+                if (complaintsResponse && complaintsResponse.items) {
+                    // API'den gelen veriye göre: 
+                    // 0: Beklemede, 1: İnceleniyor, 2: Çözüldü, 3: Reddedildi
+                    // Sadece işlem bekleyenleri (Beklemede ve İnceleniyor) saymak mantıklıdır:
+                    const pendingComplaints = complaintsResponse.items.filter(c => 
+                        c.status === 0 || c.status === 1 || c.Status === 0 || c.Status === 1
+                    ).length;
+
+                    counts.complaints = pendingComplaints;
+                }
+            } catch (error) {
+                console.error('Error loading complaints count:', error);
+                counts.complaints = 0;
+            }
 
             // Badge'leri güncelle
             this.updateBadgeCounts(counts);
-            
+
         } catch (error) {
             console.error('Error loading badge counts:', error);
         }
@@ -312,7 +332,7 @@ class AdminHeader {
     updateNotificationCount() {
         const unreadCount = this.notifications.filter(n => n.unread || n.isUnread).length;
         const countEl = document.getElementById('notificationCount');
-        
+
         if (countEl) {
             countEl.textContent = unreadCount;
             countEl.style.display = unreadCount > 0 ? 'block' : 'none';
@@ -337,7 +357,7 @@ class AdminHeader {
         this.notifications.forEach(notification => {
             const notificationEl = document.createElement('div');
             notificationEl.className = `notification-item ${notification.unread || notification.isUnread ? 'unread' : ''}`;
-            
+
             notificationEl.innerHTML = `
                 <div class="notification-icon">
                     <i class="fas fa-${this.getNotificationIcon(notification.type)}"></i>
@@ -347,7 +367,7 @@ class AdminHeader {
                     <div class="notification-time">${this.formatTime(notification.createdAt || notification.time)}</div>
                 </div>
             `;
-            
+
             notificationList.appendChild(notificationEl);
         });
     }
@@ -355,7 +375,7 @@ class AdminHeader {
     // Format notification time
     formatTime(timeString) {
         if (!timeString) return '';
-        
+
         const date = new Date(timeString);
         const now = new Date();
         const diffMs = now - date;
@@ -367,7 +387,7 @@ class AdminHeader {
         if (diffMins < 60) return `${diffMins} dakika önce`;
         if (diffHours < 24) return `${diffHours} saat önce`;
         if (diffDays < 7) return `${diffDays} gün önce`;
-        
+
         return date.toLocaleDateString('tr-TR');
     }
 
@@ -381,7 +401,7 @@ class AdminHeader {
                 postsCountEl.style.display = counts.posts > 0 ? 'inline' : 'none';
             }
         }
-        
+
         // Geri bildirimler badge'i
         if (counts.feedback !== undefined) {
             const feedbackCountEl = document.getElementById('feedbackCount');
@@ -399,18 +419,26 @@ class AdminHeader {
                 usersCountEl.style.display = counts.users > 0 ? 'inline' : 'none';
             }
         }
+        // Şikayetler badge'i
+        if (counts.complaints !== undefined) {
+            const complaintsCountEl = document.getElementById('complaintsCount');
+            if (complaintsCountEl) {
+                complaintsCountEl.textContent = counts.complaints;
+                complaintsCountEl.style.display = counts.complaints > 0 ? 'inline' : 'none';
+            }
+        }
     }
 
     // Perform search
     performSearch(query = null) {
         const searchInput = document.getElementById('globalSearch');
         const searchTerm = query || (searchInput ? searchInput.value.trim() : '');
-        
+
         if (!searchTerm) {
             this.showNotification('Lütfen bir arama terimi girin', 'warning');
             return;
         }
-        
+
         console.log('Searching for:', searchTerm);
         window.location.href = `admin-search.html?q=${encodeURIComponent(searchTerm)}`;
     }
@@ -419,7 +447,7 @@ class AdminHeader {
     static toggleUserDropdown() {
         const dropdown = document.getElementById('userDropdown');
         const userMenu = document.querySelector('.user-menu');
-        
+
         if (dropdown) {
             dropdown.classList.toggle('active');
             if (userMenu) {
@@ -451,15 +479,15 @@ class AdminHeader {
                 await window.adminHeaderInstance.apiCall('/admin/notifications/mark-all-read', {
                     method: 'PUT'
                 });
-                
+
                 window.adminHeaderInstance.notifications.forEach(n => {
                     n.unread = false;
                     n.isUnread = false;
                 });
-                
+
                 window.adminHeaderInstance.updateNotificationCount();
                 window.adminHeaderInstance.updateNotificationPanel();
-                
+
                 window.adminHeaderInstance.showNotification('Tüm bildirimler okundu olarak işaretlendi', 'success');
             } catch (error) {
                 console.error('Error marking notifications as read:', error);
@@ -473,14 +501,14 @@ class AdminHeader {
         if (!confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
             return;
         }
-        
+
         localStorage.removeItem('adminToken');
         localStorage.removeItem('adminUser');
         sessionStorage.removeItem('adminToken');
         sessionStorage.removeItem('adminUser');
-        
+
         AdminHeader.prototype.showNotification('Çıkış yapılıyor...', 'info');
-        
+
         setTimeout(() => {
             window.location.href = 'admin-login.html';
         }, 1000);
@@ -492,7 +520,7 @@ class AdminHeader {
         if (existing) {
             existing.remove();
         }
-        
+
         const notification = document.createElement('div');
         notification.className = `toast-notification toast-${type}`;
         notification.innerHTML = `
@@ -502,7 +530,7 @@ class AdminHeader {
                 <i class="fas fa-times"></i>
             </button>
         `;
-        
+
         notification.style.cssText = `
             position: fixed;
             top: 20px;
@@ -520,9 +548,9 @@ class AdminHeader {
             animation: slideIn 0.3s ease;
             max-width: 400px;
         `;
-        
+
         document.body.appendChild(notification);
-        
+
         setTimeout(() => {
             if (notification.parentElement) {
                 notification.style.animation = 'slideOut 0.3s ease';
@@ -560,12 +588,12 @@ class AdminHeader {
     // Check authentication
     checkAuth() {
         const token = localStorage.getItem('adminToken') || sessionStorage.getItem('adminToken');
-        
+
         if (!token) {
             this.redirectToLogin();
             return false;
         }
-        
+
         if (token.startsWith('demo-token-')) {
             const tokenTime = parseInt(token.split('-')[2]);
             const now = Date.now();
@@ -574,7 +602,7 @@ class AdminHeader {
                 return false;
             }
         }
-        
+
         return true;
     }
 
@@ -599,7 +627,7 @@ window.performSearch = () => window.adminHeaderInstance?.performSearch();
 window.logout = AdminHeader.logout;
 
 // Auto-initialize
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
     if (!window.location.pathname.includes('admin-login.html')) {
         if (window.adminHeaderInstance.checkAuth()) {
             await window.adminHeaderInstance.init();
