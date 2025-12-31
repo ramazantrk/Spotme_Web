@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şikayet Yönetimi - LocalConnect Admin</title>
+    <link rel="stylesheet" href="css/admin-header.css">
+    <link rel="stylesheet" href="css/admin-reports-complaint.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="header-left">
+                <h1><i class="fas fa-flag"></i> Şikayet Yönetimi</h1>
+                <p>Sistem genelinde yapılan şikayetleri yönetin</p>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-secondary" onclick="exportReports()">
+                    <i class="fas fa-download"></i> İndir
+                </button>
+                <button class="btn btn-primary" onclick="refreshReports()">
+                    <i class="fas fa-sync"></i> Yenile
+                </button>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <div class="filter-group">
+                <label>Durum</label>
+                <select id="statusFilter" onchange="applyFilters()">
+                    <option value="">Tümü</option>
+                    <option value="Pending">Beklemede</option>
+                    <option value="Reviewing">İnceleniyor</option>
+                    <option value="Resolved">Çözüldü</option>
+                    <option value="Rejected">Reddedildi</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Rapor Türü</label>
+                <select id="typeFilter" onchange="applyFilters()">
+                    <option value="">Tümü</option>
+                    <option value="User">Kullanıcı</option>
+                    <option value="Post">İlan</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Ara</label>
+                <input type="text" id="searchInput" placeholder="İsim, email veya ID ile ara..."
+                    onkeyup="applyFilters()">
+            </div>
+        </div>
+
+        <!-- Reports Table -->
+        <div class="table-section">
+            <div class="table-header">
+                <h3>Şikayetler</h3>
+                <span class="table-info">Toplam: <strong id="totalCount">0</strong></span>
+            </div>
+            <div id="tableContainer">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p style="margin-top: 15px;">Şikayetler yükleniyor...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Şikayet Detayları</h2>
+                <button class="modal-close" onclick="closeModal('detailModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="detailContent">
+                <!-- Detail content will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('detailModal')">Kapat</button>
+                <button class="btn btn-primary" onclick="openEditModal()">Düzenle</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Şikayet Durumunu Güncelle</h2>
+                <button class="modal-close" onclick="closeModal('editModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Durum</label>
+                    <select id="statusSelect">
+                        <option value="Pending">Beklemede</option>
+                        <option value="Reviewing">İnceleniyor</option>
+                        <option value="Resolved">Çözüldü</option>
+                        <option value="Rejected">Reddedildi</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Yönetici Notu</label>
+                    <textarea id="noteTextarea" placeholder="Çözüm veya karar hakkında not yazın..."
+                        style="min-height: 120px;"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('editModal')">İptal</button>
+                <button class="btn btn-primary" onclick="updateReport()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+       <script type="module" src="js/admin-header.js"></script>
+    <script type="module" src="js/admin-reports-complaint.js"></script>
+</body>
+
+</html>
